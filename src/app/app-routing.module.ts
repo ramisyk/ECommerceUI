@@ -16,6 +16,7 @@ const routes: Routes = [
 
       { path: "", component: HomeComponent },
       { path: "basket", loadChildren: () => import("./ui/components/basket/basket.module").then(module => module.BasketModule) },
+      { path: "product", loadChildren: () => import("./ui/components/products/products.module").then(module => module.ProductsModule) },
 
     ]
   }
