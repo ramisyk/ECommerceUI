@@ -31,9 +31,14 @@ export class ListProductComponent extends BaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.getProducts();
+  }
+
+  // get all products and fill the datasource of mat table
+  async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
 
-    const allProducts: List_Product[] = await this.productService.read(() => {
+    const allProducts: List_Product[] = await this.productService.read(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => {
       this.hideSpinner(SpinnerType.BallAtom)
     },
       errorMessage => {
