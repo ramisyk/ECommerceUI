@@ -17,17 +17,13 @@ export class CreateProductComponent extends BaseComponent implements OnInit {
     private alertify: AlertifyService,
     private productService: ProductService
   ) {
-    console.log("ctor")
     super(spiner)
   }
 
 
   ngOnInit(): void {
-    console.log("create product component")
   }
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
-    console.log("create product function")
-
     this.showSpinner(SpinnerType.BallAtom);
     const create_product: Create_Product = new Create_Product();
 
@@ -44,8 +40,15 @@ export class CreateProductComponent extends BaseComponent implements OnInit {
         messageType: AlertifyMessageType.Success,
         position: AlertifyMessagePosition.TopRight
       });
+    }, errorMessage => {
+      this.hideSpinner(SpinnerType.BallAtom);
+      this.alertify.message(errorMessage, {
+        dismissOthers: true,
+        messageType: AlertifyMessageType.Error,
+        position: AlertifyMessagePosition.TopRight
+      });
     });
-    
+
 
   }
 }
