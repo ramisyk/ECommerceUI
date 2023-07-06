@@ -38,7 +38,7 @@ export class ListProductComponent extends BaseComponent implements OnInit {
   async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
 
-    const allProducts: List_Product[] = await this.productService.read(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => {
+    const allProducts: { totalCount: number, products: List_Product[] } = await this.productService.read(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => {
       this.hideSpinner(SpinnerType.BallAtom)
     },
       errorMessage => {
@@ -50,7 +50,13 @@ export class ListProductComponent extends BaseComponent implements OnInit {
         })
       }
     )
-    this.dataSource = new MatTableDataSource<List_Product>(allProducts);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource = new MatTableDataSource<List_Product>(allProducts.products);
+    this.paginator.length = allProducts.totalCount;
+    //this.dataSource.paginator = this.paginator;
+  }
+
+  async pageChanged() {
+    this.showSpinner(SpinnerType.BallAtom)
+    await this.getProducts();
   }
 }
