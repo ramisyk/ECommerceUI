@@ -7,20 +7,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
+import { FileUploadModule } from '../services/common/file-upload/file-upload.module';
 
 
 
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    FileUploadDialogComponent
+    SelectProductImageDialogComponent,
   ],
   imports: [
     CommonModule,
-MatDialogModule,
-    MatSidenavModule, MatFormFieldModule, MatInputModule, MatButtonModule, 
+    MatDialogModule,
+    MatSidenavModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+    FileUploadModule
   ]
 })
 export class DialogsModule { }

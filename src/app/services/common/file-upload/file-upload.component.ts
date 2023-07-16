@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from '../../../base/base.component';
 import { FileUploadDialogComponent, FileUploadDialogState } from '../../../dialogs/file-upload-dialog/file-upload-dialog.component';
 import { AlertifyMessagePosition, AlertifyMessageType, AlertifyService } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessagePosition, ToastrMessageType } from '../../ui/custom-toastr.service';
@@ -20,7 +22,9 @@ export class FileUploadComponent {
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   public files: NgxFileDropEntry[];
 
@@ -42,6 +46,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => {
+        this.spinner.show(SpinnerType.BallAtom);
         this.httpClientService.post({
           controller: this.options.controller,
           action: this.options.action,
@@ -64,6 +69,7 @@ export class FileUploadComponent {
               position: ToastrMessagePosition.TopRight
             })
           }
+          this.spinner.hide(SpinnerType.BallAtom);
 
         }, (errorResponse: HttpErrorResponse) => {
 
@@ -82,7 +88,7 @@ export class FileUploadComponent {
               position: ToastrMessagePosition.TopRight
             })
           }
-
+          this.spinner.hide(SpinnerType.BallAtom);
         });
       }
     })
