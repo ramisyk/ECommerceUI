@@ -5,9 +5,11 @@ import { LayoutComponent } from './admin/layout/layout.component';
 import { BasketComponent } from './ui/components/basket/basket.component';
 import { BasketModule } from './ui/components/basket/basket.module';
 import { HomeComponent } from './ui/components/home/home.component';
+import { RegisterComponent } from './ui/components/register/register.component';
 
 const routes: Routes = [
-  {
+  //{ path: "register", component: RegisterComponent },
+  {  
     path: "admin", component: LayoutComponent, children: [
       { path: "", component: DashboardComponent },
       { path: "customers", loadChildren: () => import("./admin/components/customers/customers.module").then(module => module.CustomersModule) },
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "basket", loadChildren: () => import("./ui/components/basket/basket.module").then(module => module.BasketModule) },
   { path: "products", loadChildren: () => import("./ui/components/products/products.module").then(module => module.ProductsModule) },
+  { path: "register", loadChildren: () => import("./ui/components/register/register.module").then(module => module.RegisterModule) },
 
 
 ];
