@@ -4,6 +4,7 @@ import { ProductsModule } from './products/products.module';
 import { BasketModule } from './basket/basket.module';
 import { HomeModule } from './home/home.module';
 import { RegisterModule } from './register/register.module';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import { RegisterModule } from './register/register.module';
     ProductsModule,
     BasketModule,
     HomeModule,
-    RegisterModule
+    RegisterModule,
+    LoginModule
   ],
 })
 export class ComponentsModule {}
