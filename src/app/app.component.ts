@@ -12,7 +12,8 @@ export class AppComponent {
   title = 'ECommerceUI';
 
   constructor(public authService: AuthService, private toastrService: CustomToastrService, private router: Router) {
-    authService.identityCheck();
+    if (localStorage.getItem("access-token"))
+      authService.identityCheck();
   }
 
   signOut() {
