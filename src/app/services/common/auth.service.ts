@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private jwtHelper: JwtHelperService) { }
 
   identityCheck() {
-    const token: string = localStorage.getItem("access-token");
+    const token: string = localStorage.getItem("accessToken");
 
     //const decodeToken = this.jwtHelper.decodeToken(token);
     //const expirationDate: Date = this.jwtHelper.getTokenExpirationDate(token);

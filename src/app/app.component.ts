@@ -12,12 +12,12 @@ export class AppComponent {
   title = 'ECommerceUI';
 
   constructor(public authService: AuthService, private toastrService: CustomToastrService, private router: Router) {
-    if (localStorage.getItem("access-token"))
+    if (localStorage.getItem("accessToken"))
       authService.identityCheck();
   }
 
   signOut() {
-    localStorage.removeItem("access-token");
+    localStorage.removeItem("accessToken");
     this.authService.identityCheck();
     this.router.navigate([""]);
     this.toastrService.message("Oturum kapatılmıştır!", "Oturum Kapatıldı", {

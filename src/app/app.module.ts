@@ -31,7 +31,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem("access-token"),
+        tokenGetter: () => localStorage.getItem("accessToken"),
         allowedDomains: ["localhost:7287"]
       }
     }),
