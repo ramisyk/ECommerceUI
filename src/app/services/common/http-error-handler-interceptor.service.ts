@@ -1,23 +1,33 @@
 import { HttpEvent, HttpHandler, HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, Observable, of } from 'rxjs';
+import { SpinnerType } from '../../base/base.component';
 import { CustomToastrService, ToastrMessagePosition, ToastrMessageType } from '../ui/custom-toastr.service';
+import { UserAuthService } from './models/user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpErrorHandlerInterceptorService {
 
-  constructor(private toastrService: CustomToastrService) { }
+  constructor(private toastrService: CustomToastrService,
+    private spinner: NgxSpinnerService,
+    private userAuthService: UserAuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(catchError(error => {
       switch (error.status) {
         case HttpStatusCode.Unauthorized:
-          this.toastrService.message("Bu işlemi yapmaya yetkiniz bulunmamaktadır!", "Yetkisiz işlem!", {
-            messageType: ToastrMessageType.Warning,
-            position: ToastrMessagePosition.BottomFullWidth
+
+          this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshToken")).then(data => {
+            if (!data) {
+              this.toastrService.message("Bu işlemi yapmaya yetkiniz bulunmamaktadır!", "Yetkisiz işlem!", {
+                messageType: ToastrMessageType.Warning,
+                position: ToastrMessagePosition.BottomFullWidth
+              });
+            }
           });
           break;
         case HttpStatusCode.InternalServerError:
@@ -45,6 +55,7 @@ export class HttpErrorHandlerInterceptorService {
           });
           break;
       }
+      this.spinner.hide(SpinnerType.BallAtom)
       return of(error);
     }));
   }
