@@ -23,11 +23,10 @@ export class SignalRService {
         .build();
 
       hubConnection.start()
-        .then(() => {
-          console.log("Connected");
-          this._connection = hubConnection;
-        })
+        .then(() => console.log("Connected"))
         .catch(error => setTimeout(() => this.start(hubUrl), 2000));
+        this._connection = hubConnection;
+
     }
     this._connection.onreconnected(connectionID => console.log("Reconnected"));
     this._connection.onreconnecting(error => console.log("Reconnecting..."));
