@@ -31,8 +31,8 @@ export class ProductService {
       });
   }
 
-  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
-    const promiseData: Promise<{ totalCount: number, products: List_Product[] }> = this.httpClientService.get < { totalCount: number, products: List_Product[] } >({
+  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number; products: List_Product[] }>  {
+    const promiseData: Promise<{ totalProductCount: number, products: List_Product[] }> = this.httpClientService.get < { totalProductCount: number, products: List_Product[] } >({
       controller: "products",
       queryString: `page=${page}&size=${size}`
     }).toPromise();
@@ -58,6 +58,8 @@ export class ProductService {
     }, id);
 
     const images: List_Product_Image[] = await firstValueFrom(getObsrevable);
+    debugger;
+    console.log(images);
     successCallBack();
     return images;
   }

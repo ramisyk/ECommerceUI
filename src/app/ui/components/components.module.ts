@@ -7,7 +7,9 @@ import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  
+  ],
   imports: [
     CommonModule, 
     ProductsModule,
