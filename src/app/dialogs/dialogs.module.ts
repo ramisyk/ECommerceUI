@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
 import { FileUploadModule } from '../services/common/file-upload/file-upload.module';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatSidenavModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule,
     FileUploadModule,
-    
+    FormsModule,
   ]
 })
 export class DialogsModule { }

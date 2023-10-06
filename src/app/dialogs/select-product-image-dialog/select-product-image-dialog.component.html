@@ -5,13 +5,11 @@
 
   <mat-card class="product-image-card" *ngFor="let image of images">
     <mat-card-header>
-      <!--<div mat-card-avatar class="product-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+      <input type="radio" name="img" (click)="showCase(image.id)" />
     </mat-card-header>
-    <img mat-card-image [src]='image.path' [alt]="image.fileName" height="200px" width="200px"> 
+    <img mat-card-image [src]='image.path' [alt]="image.fileName" height="200px" width="200px">
     <mat-card-content>
-
+      <h3>Showcase olan image için açılışta seçili radio button gönderilecek!!!</h3>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button mat-raised-button color="warn" (click)="deleteImage(image.id)">DELETE</button>

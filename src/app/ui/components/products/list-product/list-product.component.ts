@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { List_Product } from 'src/app/contracts/list_product';
 import { ProductService } from 'src/app/services/common/models/product.service';
+import {FileService} from "../../../../services/common/file.service";
+import {BaseStorageUrl} from "../../../../contracts/base-storage-url";
 
 @Component({
   selector: 'app-list-product',
@@ -11,7 +13,8 @@ import { ProductService } from 'src/app/services/common/models/product.service';
 export class ListProductComponent implements OnInit {
 
   constructor(private productService: ProductService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private fileService: FileService         ) { }
 
   currentPageNo: number;
   totalProductCount: number;
@@ -20,7 +23,11 @@ export class ListProductComponent implements OnInit {
   pageList: number[] = [];
   products: List_Product[];
 
+  baseStorageUrl: BaseStorageUrl;
+
   async ngOnInit() {
+    this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
+
     this.activatedRoute.params.subscribe(async params => {
       this.currentPageNo = parseInt(params["pageNo"]);
       if (Number.isNaN(this.currentPageNo))
@@ -33,6 +40,22 @@ export class ListProductComponent implements OnInit {
 
         });
       this.products = data.products;
+
+      this.products = this.products.map(p => {
+        const listProduct : List_Product = {
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          stock: p.stock,
+          createdDate: p.createdDate,
+          updatedDate: p.updatedDate,
+          imagePath: p.productImageFiles.length ? p.productImageFiles.find(image => image.showcase).path : '' ,
+          productImageFiles: p.productImageFiles
+        };
+        return listProduct;
+      })
+
+
       this.totalProductCount = data.totalProductCount;
       this.totalPageCount = Math.ceil(this.totalProductCount / this.pageSize);
       this.pageList = [];
@@ -47,7 +70,7 @@ export class ListProductComponent implements OnInit {
         for (let i = 1; i <= limit; i++)
           this.pageList.push(i);
       }
-        
+
       else if (this.currentPageNo + 3 >= this.totalPageCount)
         for (let i = this.totalPageCount - 6; i <= this.totalPageCount; i++)
           this.pageList.push(i);

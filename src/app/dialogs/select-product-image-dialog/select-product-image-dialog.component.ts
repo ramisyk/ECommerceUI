@@ -50,15 +50,24 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
       afterClosed: async () => {
         this.spinner.show(SpinnerType.BallAtom)
         await this.productService.deleteImage(this.data as string, imageId as string, async () => {
-          this.spinner.hide(SpinnerType.BallAtom);
+          // this.spinner.hide(SpinnerType.BallAtom);
 
-          this.spinner.show(SpinnerType.BallAtom)
+          // this.spinner.show(SpinnerType.BallAtom)
           this.images = await this.productService.readImages(this.data as string, () => {
             this.spinner.hide(SpinnerType.BallAtom);
           });
         })
       }
     })
+  }
+
+  showCase(imageId: string) {
+    // this.data is equal product id
+    this.spinner.show(SpinnerType.BallAtom);
+    this.productService.changeShowcaseImage(imageId, this.data.toString(), () => {
+      this.spinner.hide(SpinnerType.BallAtom);
+
+    } )
   }
 
   @Output() options: Partial<FileUploadOptions> = {
@@ -69,7 +78,6 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     explanation: 'Please select or drop product image files...',
     queryString: `id=${this.data}`
   };
-
 }
 
 export enum SelectProductImageState {
