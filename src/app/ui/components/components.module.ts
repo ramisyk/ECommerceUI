@@ -8,15 +8,18 @@ import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
-  
+
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     ProductsModule,
     BasketModule,
     HomeModule,
     RegisterModule,
     //LoginModule
   ],
+  exports : [
+    BasketModule
+  ]
 })
 export class ComponentsModule {}

@@ -17,10 +17,12 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" routerLink="products">Products</a>
             </li>
+
+            <!--
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" routerLink="basket">Basket</a>
             </li>
-
+             -->
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">Register</a>
             </li>
@@ -37,10 +39,15 @@
               <a routerLink="admin" class="btn btn-outline-success" type="submit" *ngIf="authService.isAuthenticated">Admin Page</a>
             </li>
           </ul>
+          <!--
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          -->
+          <div class="d-flex">
+            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit">Basket</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -59,3 +66,6 @@
 <ngx-spinner size="default" name="spinner-ball-atom" type="ball-atom"></ngx-spinner>
 <ngx-spinner size="default" name="spinner-ball-scale-multiple" type="ball-scale-multiple"></ngx-spinner>
 <ngx-spinner size="default" name="spinner-ball-spin-clockwise-fade-rotating" type="ball-spin-clockwise-fade-rotating"></ngx-spinner>
+
+
+<app-basket></app-basket>

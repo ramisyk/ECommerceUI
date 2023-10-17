@@ -15,6 +15,7 @@ import { LoginComponent } from './ui/components/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
+import {BasketModule} from "./ui/components/basket/basket.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,7 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
       }
     }),
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
   ],
   providers: [
     { provide: "baseUrl", useValue: "https://localhost:7287/api", multi: true },

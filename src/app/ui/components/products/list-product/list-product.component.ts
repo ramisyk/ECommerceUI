@@ -26,6 +26,7 @@ export class ListProductComponent implements OnInit {
   baseStorageUrl: BaseStorageUrl;
 
   async ngOnInit() {
+    
     this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
 
     this.activatedRoute.params.subscribe(async params => {
