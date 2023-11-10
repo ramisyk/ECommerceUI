@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from '../../../base/base.component';
-import { Create_User } from '../../../contracts/create_user';
+import { Create_User } from '../../../contracts/user/create_user';
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/common/models/user.service';
 import { CustomToastrService, ToastrMessagePosition, ToastrMessageType } from '../../../services/ui/custom-toastr.service';

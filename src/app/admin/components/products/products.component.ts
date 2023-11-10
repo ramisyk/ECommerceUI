@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from '../../../base/base.component';
-import { Create_Product } from '../../../contracts/create_product';
+import { Create_Product } from '../../../contracts/product/create_product';
 import { ListProductComponent } from './list-product/list-product.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class ProductsComponent extends BaseComponent {
     super(spinner);
   }
 
-  @ViewChild(ListProductComponent) listComponents: ListProductComponent; 
+  @ViewChild(ListProductComponent) listComponents: ListProductComponent;
 
   createdProduct(createdProduct: Create_Product) {
     this.listComponents.getProducts();

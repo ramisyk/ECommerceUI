@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { List_Product } from 'src/app/contracts/list_product';
+import { List_Product } from 'src/app/contracts/product/list_product';
 import { ProductService } from 'src/app/services/common/models/product.service';
 import {FileService} from "../../../../services/common/file.service";
 import {BaseStorageUrl} from "../../../../contracts/base-storage-url";
+import {NgxSpinnerService} from "ngx-spinner";
+import {BaseComponent, SpinnerType} from "../../../../base/base.component";
+import {Create_Basket_Item} from "../../../../contracts/basket/create_basket_item";
+import {BasketService} from "../../../../services/common/models/basket.service";
+import {
+  CustomToastrService,
+  ToastrMessagePosition,
+  ToastrMessageType
+} from "../../../../services/ui/custom-toastr.service";
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
   styleUrls: ['./list-product.component.css']
 })
-export class ListProductComponent implements OnInit {
+export class ListProductComponent extends BaseComponent implements OnInit {
 
   constructor(private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private fileService: FileService         ) { }
+    private fileService: FileService, spinner: NgxSpinnerService,
+              private basketService: BasketService,
+              private customToastrService: CustomToastrService) {
+    super(spinner);
+  }
 
   currentPageNo: number;
   totalProductCount: number;
@@ -26,8 +39,8 @@ export class ListProductComponent implements OnInit {
   baseStorageUrl: BaseStorageUrl;
 
   async ngOnInit() {
-    
-    this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
+
+    // this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
 
     this.activatedRoute.params.subscribe(async params => {
       this.currentPageNo = parseInt(params["pageNo"]);
@@ -79,6 +92,19 @@ export class ListProductComponent implements OnInit {
       else
         for (let i = this.currentPageNo - 3; i <= this.currentPageNo + 3; i++)
           this.pageList.push(i);
+    });
+  }
+
+  async addToBasket(product: List_Product) {
+    this.showSpinner(SpinnerType.BallAtom);
+    let _basketItem: Create_Basket_Item = new Create_Basket_Item();
+    _basketItem.productId = product.id;
+    _basketItem.quantity = 1;
+    await this.basketService.add(_basketItem);
+    this.hideSpinner(SpinnerType.BallAtom);
+    this.customToastrService.message("Ürün sepete eklenmiştir.", "Sepete Eklendi", {
+      messageType: ToastrMessageType.Success,
+      position: ToastrMessagePosition.TopRight
     });
   }
 }

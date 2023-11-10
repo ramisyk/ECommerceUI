@@ -1,7 +1,7 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { LoginResponse } from '../../../contracts/login_response';
+import { LoginResponse } from '../../../contracts/user/login_response';
 import { CustomToastrService, ToastrMessagePosition, ToastrMessageType } from '../../ui/custom-toastr.service';
 import { HttpClientService } from '../http-client.service';
 
@@ -75,20 +75,40 @@ export class UserAuthService {
     callBackFunction();
   }
 
-  async refreshTokenLogin(refreshToken: string, callBackFunction?: () => void): Promise<boolean> {
+  // async refreshTokenLogin(refreshToken: string, callBackFunction?: () => void): Promise<boolean> {
+  //   const observable: Observable<any | LoginResponse> = this.httpClientService.post({
+  //     action: "LoginWithRefreshToken",
+  //     controller: "auth"
+  //   }, { refreshToken: refreshToken });
+  //
+  //   const tokenResponse: LoginResponse = await firstValueFrom(observable) as LoginResponse;
+  //
+  //   if (tokenResponse) {
+  //     localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+  //     localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+  //     return true;
+  //   }
+  //   callBackFunction();
+  //   return false;
+  // }
+
+  async refreshTokenLogin(refreshToken: string, callBackFunction?: (state) => void): Promise<any> {
     const observable: Observable<any | LoginResponse> = this.httpClientService.post({
-      action: "LoginWithRefreshToken",
+      action: "refreshtokenlogin",
       controller: "auth"
     }, { refreshToken: refreshToken });
 
-    const tokenResponse: LoginResponse = await firstValueFrom(observable) as LoginResponse;
+    try {
+      const tokenResponse: LoginResponse = await firstValueFrom(observable) as LoginResponse;
 
-    if (tokenResponse) {
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
-      return true;
+      if (tokenResponse) {
+        localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+        localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+      }
+
+      callBackFunction(tokenResponse ? true : false);
+    } catch {
+      callBackFunction(false);
     }
-    callBackFunction();
-    return false;
   }
 }

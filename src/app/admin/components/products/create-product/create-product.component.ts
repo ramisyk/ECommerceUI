@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
-import { Create_Product } from '../../../../contracts/create_product';
+import { Create_Product } from '../../../../contracts/product/create_product';
 import { AlertifyMessagePosition, AlertifyMessageType, AlertifyService } from '../../../../services/admin/alertify.service';
 import { ProductService } from '../../../../services/common/models/product.service';
 
@@ -40,7 +40,7 @@ export class CreateProductComponent extends BaseComponent implements OnInit {
         messageType: AlertifyMessageType.Success,
         position: AlertifyMessagePosition.TopRight
       });
-      this.createdProduct.emit(create_product); 
+      this.createdProduct.emit(create_product);
     }, errorMessage => {
       this.hideSpinner(SpinnerType.BallAtom);
       this.alertify.message(errorMessage, {
