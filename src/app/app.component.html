@@ -46,7 +46,7 @@
           </form>
           -->
           <div class="d-flex">
-            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit">Basket</button>
+            <button class="btn btn-outline-success" (click)="loadComponent()" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit">Basket</button>
           </div>
         </div>
       </div>
@@ -68,4 +68,10 @@
 <ngx-spinner size="default" name="spinner-ball-spin-clockwise-fade-rotating" type="ball-spin-clockwise-fade-rotating"></ngx-spinner>
 
 
-<app-basket></app-basket>
+<!--<app-basket></app-basket>-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <ng-template appDynamicLoadComponent></ng-template>
+  </div>
+</div>
