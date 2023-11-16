@@ -44,6 +44,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
   ],
   providers: [
     { provide: "baseUrl", useValue: "https://localhost:7287/api", multi: true },
+    { provide: "domainUrl", useValue: "https://localhost:7287/", multi: true },
     {
       provide: "SocialAuthServiceConfig",
       useValue: {
