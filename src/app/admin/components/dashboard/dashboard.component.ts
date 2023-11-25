@@ -20,7 +20,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     signalRService.start(HubUrls.OrdersHub);
   }
   ngOnInit() {
-    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
+    this.signalRService.on(HubUrls.ProductsHub, ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
       this.alertifyService.message(message, {
         delay: 3,
         dismissOthers: true,
@@ -29,7 +29,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       });
     });
 
-    this.signalRService.on(ReceiveFunctions.OrderCreatedMessageReceiveFunction, message => {
+    this.signalRService.on(HubUrls.OrdersHub, ReceiveFunctions.OrderCreatedMessageReceiveFunction, message => {
       this.alertifyService.message(message, {
         delay: 3,
         dismissOthers: true,
