@@ -16,6 +16,7 @@ import {
 } from "../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component";
 import {List_Order} from "../../../../contracts/order/list_order";
 import {OrderService} from "../../../../services/common/models/order.service";
+import {OrderDetailDialogComponent} from "../../../../dialogs/order-detail-dialog/order-detail-dialog.component";
 
 @Component({
   selector: 'app-list-order',
@@ -23,7 +24,7 @@ import {OrderService} from "../../../../services/common/models/order.service";
   styleUrls: ['./list-order.component.css']
 })
 export class ListOrderComponent extends BaseComponent implements OnInit{
-  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createdDate', 'delete'];
+  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createdDate', 'viewDetail', 'delete'];
 
   dataSource: MatTableDataSource<List_Order> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -55,6 +56,17 @@ export class ListOrderComponent extends BaseComponent implements OnInit{
 
   async pageChanged() {
     await this.getOrders();
+
+  }
+
+  showDetail(id: string) {
+    this.dialogService.openDialog({
+      componentType: OrderDetailDialogComponent,
+      data: id,
+      options: {
+        width: "750px"
+      }
+    });
 
   }
 }
