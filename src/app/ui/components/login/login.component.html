@@ -12,8 +12,10 @@
       <input #txtPassword type="password" class="form-control" id="password" placeholder="Şifre">
     </div>
 
-
+    <br>
     <button style="margin-top:5px;" type="submit" class="btn btn-primary" (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Giriş Yap</button>
+
+    <a style="margin-top:5px;margin-left:5px;" routerLink="/password-reset" class="btn btn-secondary">Forgot My Password</a>
     <br />
     <br />
     <div class="row">
