@@ -24,7 +24,7 @@ import {OrderDetailDialogComponent} from "../../../../dialogs/order-detail-dialo
   styleUrls: ['./list-order.component.css']
 })
 export class ListOrderComponent extends BaseComponent implements OnInit{
-  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createdDate', 'viewDetail', 'delete'];
+  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createdDate', 'completed', 'viewDetail', 'delete'];
 
   dataSource: MatTableDataSource<List_Order> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;

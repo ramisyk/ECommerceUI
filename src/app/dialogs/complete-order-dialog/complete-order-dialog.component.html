@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Order Complete!</h1>
+<div mat-dialog-content>
+  <p>Are you sure to complete order?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">İptal</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="complete()">Evet</button>
+</div>
