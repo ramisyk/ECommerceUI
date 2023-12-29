@@ -24,6 +24,7 @@ export class HttpErrorHandlerInterceptorService {
     return next.handle(req).pipe(catchError(error => {
       switch (error.status) {
         case HttpStatusCode.Unauthorized:
+
           this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshToken"), (state) => {
             if (!state) {
               const url = this.router.url;
@@ -39,17 +40,11 @@ export class HttpErrorHandlerInterceptorService {
                 });
             }
           }).then(data => {
-
+            this.toastrService.message("Bu işlemi yapmaya yetkiniz bulunmamaktadır!", "Yetkisiz işlem!", {
+              messageType: ToastrMessageType.Warning,
+              position: ToastrMessagePosition.BottomFullWidth
+            });
           });
-
-          // this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshToken")).then(data => {
-          //   if (!data) {
-          //     this.toastrService.message("Bu işlemi yapmaya yetkiniz bulunmamaktadır!", "Yetkisiz işlem!", {
-          //       messageType: ToastrMessageType.Warning,
-          //       position: ToastrMessagePosition.BottomFullWidth
-          //     });
-          //   }
-          // });
           break;
         case HttpStatusCode.InternalServerError:
           this.toastrService.message("Sunucuya erişilmiyor!", "Sunucu hatası!", {
@@ -76,7 +71,8 @@ export class HttpErrorHandlerInterceptorService {
           });
           break;
       }
-      this.spinner.hide(SpinnerType.BallAtom)
+
+      this.spinner.hide(SpinnerType.BallAtom);
       return of(error);
     }));
   }
