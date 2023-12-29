@@ -19,7 +19,6 @@ export class LoginComponent extends BaseComponent {
     private socialAuthService: SocialAuthService, private userAuthService: UserAuthService) {
     super(spinner)
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
-      console.log(user)
       this.showSpinner(SpinnerType.BallAtom);
       switch (user.provider) {
         case "GOOGLE":

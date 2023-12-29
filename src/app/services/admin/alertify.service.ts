@@ -13,7 +13,6 @@ export class AlertifyService {
   message(message: string, options: Partial<AlertifyOptions>) {
     alertify.set('notifier', 'delay', options.delay);
     alertify.set('notifier', 'position', options.position);
-    console.log(options);
     const msj = alertify[options.messageType](message);
     if (options.dismissOthers)
       msj.dismissOthers();

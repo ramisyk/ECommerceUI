@@ -58,7 +58,6 @@ export class ProductService {
     }, id);
 
     const images: List_Product_Image[] = await firstValueFrom(getObsrevable);
-    console.log(images);
     successCallBack();
     return images;
   }

@@ -63,7 +63,6 @@ export class UpdatePasswordComponent extends BaseComponent {
             this.router.navigate(["/login"])
           },
           error => {
-            console.log(error)
           });
         this.hideSpinner(SpinnerType.BallAtom)
       }

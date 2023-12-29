@@ -95,11 +95,9 @@ export class FileUploadComponent {
   }
 
   public fileOver(event) {
-    console.log(event);
   }
 
   public fileLeave(event) {
-    console.log(event);
   }
 }
 
