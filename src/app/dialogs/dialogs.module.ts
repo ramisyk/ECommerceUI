@@ -21,6 +21,8 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatListModule } from "@angular/material/list";
 import { AuthorizeUserDialogComponent } from './authorize-user-dialog/authorize-user-dialog.component';
 import {QrcodeDialogComponent} from "./qrcode-dialog/qrcode-dialog.component";
+import { QrcodeReadingDialogComponent } from './qrcode-reading-dialog/qrcode-reading-dialog.component';
+import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
 
 
 @NgModule({
@@ -34,13 +36,15 @@ import {QrcodeDialogComponent} from "./qrcode-dialog/qrcode-dialog.component";
     AuthorizeMenuDialogComponent,
     AuthorizeUserDialogComponent,
     QrcodeDialogComponent,
+    QrcodeReadingDialogComponent,
   ],
   imports: [
     CommonModule,
     MatDialogModule,
     MatSidenavModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule,
     FileUploadModule,
-    FormsModule, MatToolbarModule, MatTableModule, MatBadgeModule, MatListModule
+    FormsModule, MatToolbarModule, MatTableModule, MatBadgeModule, MatListModule,
+    NgxScannerQrcodeModule
   ]
 })
 export class DialogsModule { }
